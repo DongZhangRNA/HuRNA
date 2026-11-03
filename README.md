@@ -6,28 +6,57 @@ Version 1.0, 30/10/2026
 HuRNA is a coarse-grained model for de novo prediction RNA 3D structures using motif based template searching. The model has four main features: a template database for RNA motifs, a five-bead coarse-grained representation per nucleotide, a coarse-grained force field extracted through rigorous reference state simulations, and replica-exchange molecular dynamics simulations for conformational sampling. The main program is "Predict_RNA_structure": To fold tertiary structures of RNAs with complicated topologies with or without given secondary structure constraints; 
 
 ********************************************************
-#### Requirements:
+### Requirements:
 Linux operating systems
 >=10 threads
 RAM of >= 5G
 g++ compiler with C++14 support
 
 ********************************************************
-#### Dependencies:
-HuRNA relies on MPICH platform for parallel REMD simulations (10 replicas) in LAMMPS and AmberTools22 to configure energy minimization in Amber force field.
 
-********************************************************
-#### Installation:
-1. Install an MPI implementation providing mpirun, such as mpich >=3.2 (http://www.mpich.org/downloads/ or sudo apt-get install mpich if you are using Ubuntu)
-2. Install AmberTools for all-atom energy minimization, optional but strongly recommended (https://ambermd.org/GetAmber.php#ambertools)
-3. Install HuRNA: unzip HuRNA.zip; change to the project root; run `bash ./install.sh`
+### Dependencies
 
-The installer checks for cmake, make, gcc, g++, and mpirun on PATH, and verifies that g++ can compile C++14 before starting a build. It exits with an error if a prerequisite is missing or the compilation check fails.
+HuRNA uses MPICH for parallel REMD simulations with 10 replicas in LAMMPS. AmberTools 22 is used to configure energy minimization with the Amber force field.
 
-Run the installer with `bash ./install.sh` as shown above. If it is sourced, it
-runs in a subshell so its exits, working-directory changes, shell options, and
-traps do not change the calling shell. A failed installation still returns a
-nonzero status; callers using `set -e` must handle that status to continue.
+### Installing of dependencies
+
+- **Required:** Install an MPI implementation that provides `mpirun`, such as MPICH 3.2 or later. See the [MPICH download page](http://www.mpich.org/downloads/), or run `sudo apt-get install mpich` on Ubuntu.
+- **Optional:** Install AmberTools to perform all-atom energy minimization. This is optional but strongly recommended. See the [AmberTools installation instructions](https://ambermd.org/GetAmber.php#ambertools).
+
+### Installation of HuRNA
+
+1. Download the released source code (recommended): [HuRNA-1.0.zip](https://github.com/DongZhangRNA/HuRNA/archive/refs/tags/v1.0.zip) or [HuRNA-1.0.tar.gz](https://github.com/DongZhangRNA/HuRNA/archive/refs/tags/v1.0.tar.gz).
+
+   Alternatively, clone the repository:
+
+   ```bash
+   git clone https://github.com/DongZhangRNA/HuRNA.git
+   ```
+
+   Cloning the full package requires Git LFS. Install and initialize it with `sudo apt install git-lfs && git lfs install`; otherwise, the package may not be cloned completely.
+
+2. Extract the source code:
+
+   ```bash
+   unzip HuRNA-1.0.zip
+   ```
+
+   Or, if you downloaded the tarball:
+
+   ```bash
+   tar -xzf HuRNA-1.0.tar.gz
+   ```
+
+3. Install HuRNA:
+
+   ```bash
+   cd HuRNA-1.0 && bash ./install.sh
+   ```
+
+The installer checks that `cmake`, `make`, `gcc`, `g++`, and `mpirun` are available on `PATH`. It also verifies that `g++` can compile C++14 code before starting the build. The installer exits with an error if a prerequisite is missing or the compilation check fails.
+
+Run the installer with `bash ./install.sh`, as shown above. If the script is sourced, it runs in a subshell, so its exit, working-directory changes, shell options, and traps do not affect the calling shell. A failed installation still returns a nonzero status. Callers using `set -e` must handle that status if they need to continue.
+
 
 ********************************************************
 #### Usage descriptions:
