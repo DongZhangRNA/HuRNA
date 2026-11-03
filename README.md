@@ -1,9 +1,9 @@
 #### HuRNA: A Hybrid framework for universal RNA 3D Structure Prediction
-Contributed by Deyin Wang, LinXi Zhang, Ruhong zhou, and Dong Zhang
+Contributed by Deyin Wang, LinXi Zhang, Ruhong Zhou, and Dong Zhang
 Version 1.0, 30/10/2026
 
 ********************************************************
-HuRNA is a coarse-grained model for de novo prediction RNA 3D structures using motif based template searching. The model has four main features: a template database for RNA motifs, a four/five-bead coarse-grained representation for pyrimidine/purine nucleotides, a coarse-grained force field extracted through rigorous reference state simulations, and replica-exchange molecular dynamics simulations for conformational sampling. The main program is "Predict_RNA_structure": To fold tertiary structures of RNAs with complicated topologies with or without given secondary structure constraints; 
+HuRNA is a coarse-grained model for de novo prediction RNA 3D structures using motif based template searching. The model has four main features: a template database for RNA motifs, a five-bead coarse-grained representation per nucleotide, a coarse-grained force field extracted through rigorous reference state simulations, and replica-exchange molecular dynamics simulations for conformational sampling. The main program is "Predict_RNA_structure": To fold tertiary structures of RNAs with complicated topologies with or without given secondary structure constraints; 
 
 ********************************************************
 #### Requirements:
@@ -14,12 +14,12 @@ g++ compiler with C++14 support
 
 ********************************************************
 #### Dependencies:
-HuRNA relies on MPICH platform for parallel REMD simulations (10 replicas) in LAMMPS and VMD package to configure energy minimization in NAMD.
+HuRNA relies on MPICH platform for parallel REMD simulations (10 replicas) in LAMMPS and AmberTools22 to configure energy minimization in Amber force field.
 
 ********************************************************
 #### Installation:
 1. Install an MPI implementation providing mpirun, such as mpich >=3.2 (http://www.mpich.org/downloads/ or sudo apt-get install mpich if you are using Ubuntu)
-2. Install vmd >=1.9.3 (https://www.ks.uiuc.edu/Development/Download/download.cgi?PackageName=VMD)
+2. Install AmberTools for all-atom energy minimization, optional but strongly recommended (https://ambermd.org/GetAmber.php#ambertools)
 3. Install HuRNA: unzip HuRNA.zip; change to the project root; run `bash ./install.sh`
 
 The installer checks for cmake, make, gcc, g++, and mpirun on PATH, and verifies that g++ can compile C++14 before starting a build. It exits with an error if a prerequisite is missing or the compilation check fails.
@@ -72,24 +72,28 @@ nonzero status; callers using `set -e` must handle that status to continue.
 ```bash
   -i, input file contains sequence (required) and 2D structure (required)
   -if, input initial RNA structure file (required)
-  -iformat, the format of input initial RNA structure file, default 'cg'
+  -iformat, the format of input initial RNA structure file ('aa' or 'cg'), default 'cg'
   -restr, restraint file contained the user_template, distance_restraints, rigid_body, etc
   -DIR, work directory, default "prediction"
   -name, jobname, default "rna"
   -log, log file, default "${jobname}.log"
-  -ti_fold, 
-  -ss_restr, 
+  -ti_fold, refolding the teritary helices related to the nested base-pairing interactions, no value.
+  -ss_restr, using secondary structure as restraints, no value
   -version, CG force field version, default "v2"
 ```
 
 `Obtain_top_structure`:
 ```bash
-  -lt, 
-  -ll,
-  -ref,
+  -lt, file contained the lammps trj files list (LAMMPS MD trajectories),should be consistent with the order of log files, default '${DIR}/${jobname}_prod_lammpstrj_list.dat'
+  -ll, file contained the lammps log files list (LAMMPS log files for potential energies), should be consistent with the order of trj files, default '${DIR}/${jobname}_prod_lammpslog_list.dat'
+  -ref, reference file contained the residue information for lammps trj files, default '${DIR}/${jobname}_cg.pdb'
   -log, log file, default "${jobname}.log"
   -o, output file, default "${DIR}/${jobname}_predicted_cg.pdb"
-  -b, 0
+  -b, step of first frame to read from trajectory, default 0
+  -e, step of last frame to read from trajectory, default -1
+  -pe, percentage of top lowest potential energy structrues for structure prediction, default "0.1"
+  -cutoff, rmsd cutoff (in Angstrom) for structure clustering, default "-1.0"
+  -pc, percentage of structures in largest cluster, default "0.5" (-cutoff and -pc are mutually exclusive)
 ```
 
 `Reconstruct_allatom_structure`:
@@ -99,7 +103,7 @@ nonzero status; callers using `set -e` must handle that status to continue.
   -name, jobname, default "rna"
   -o, output file contains predicted all-atom structure, default "${DIR}/${jobname}_predicted.pdb"
   -log, log file, default "${jobname}.log"
-  -min, perform all-atom structure energy minimization
+  -min, perform all-atom structure energy minimization, no value
   -version, CG force field version, default "v2"
 ```
 
