@@ -235,6 +235,10 @@ install_cobmms() {
 # ---------- dispatch ----------
 START_TS=$(date +%s)
 
+# ---------- extract external dependencies ----------
+log_step "Extracting external.zip"
+unzip -o "${ROOT_DIR}/external.zip" -d "${ROOT_DIR}"
+
 check_tools
 
 targets=("${@:-all}")
@@ -278,6 +282,13 @@ for t in "${targets[@]}"; do
             ;;
     esac
 done
+
+# ---------- extract data ----------
+log_step "Extracting data.zip"
+if ! mkdir -p "${ROOT_DIR}/data" || ! unzip -o "${ROOT_DIR}/data.zip" -d "${ROOT_DIR}"; then
+    failed+=("data.zip extraction")
+    log_error "data.zip extraction failed."
+fi
 
 # ---------- summary ----------
 END_TS=$(date +%s)
