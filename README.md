@@ -30,7 +30,7 @@ HuRNA uses MPICH for parallel REMD simulations with 10 replicas in LAMMPS. Amber
    Alternatively, clone the repository:
 
    ```bash
-   git clone https://github.com/DongZhangRNA/HuRNA.git
+   git lfs clone https://github.com/DongZhangRNA/HuRNA.git
    ```
 
    Cloning the full package requires Git LFS. Install and initialize it with `sudo apt install git-lfs && git lfs install`; otherwise, the package may not be cloned completely.
