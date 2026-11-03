@@ -1,4 +1,4 @@
-#### HuRNA: A Hybrid framework for universal RNA 3D Structure Prediction
+## HuRNA: A Hybrid framework for universal RNA 3D Structure Prediction
 Contributed by Deyin Wang, LinXi Zhang, Ruhong Zhou, and Dong Zhang
 Version 1.0, 30/10/2026
 
