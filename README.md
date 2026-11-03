@@ -139,8 +139,8 @@ Run the installer with `bash ./install.sh`, as shown above. If the script is sou
 ********************************************************
 ### Example usage
 
-The [example](example/) folder contains two PU31 prediction workflows. Complete
-the installation above first, including the MPI and VMD dependencies, and
+The [example](example/) folder contains three prediction workflows. Complete
+the installation above first, including the MPI dependencies, and
 check that `bin/Predict_RNA_structure` has been built. Run each script from
 its own example directory: the paths in the scripts are relative to that
 directory.
