@@ -285,11 +285,6 @@ done
 
 # ---------- extract data ----------
 log_step "Extracting data.zip"
-<<<<<<< HEAD
-if ! mkdir -p "${ROOT_DIR}/data" || ! unzip -o "${ROOT_DIR}/data.zip" -d "${ROOT_DIR}"; then
-    failed+=("data.zip extraction")
-    log_error "data.zip extraction failed."
-=======
 merged_dir=$(mktemp -d "${ROOT_DIR}/.data-merge.XXXXXX")
 
 if [[ -z "${merged_dir}" ]]; then
@@ -305,7 +300,6 @@ else
 
     rm -f "${merged_dir}/data.zip"
     rmdir "${merged_dir}"
->>>>>>> f2c8216 (Update data)
 fi
 
 # ---------- summary ----------
