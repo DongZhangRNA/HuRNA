@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Install script for Cobmms_test external dependencies:
+# Install script for HuRNA_test external dependencies:
 #   - LAMMPS (29Aug2024)
 #   - TMscore
 #   - CONTRAfold
@@ -285,9 +285,27 @@ done
 
 # ---------- extract data ----------
 log_step "Extracting data.zip"
+<<<<<<< HEAD
 if ! mkdir -p "${ROOT_DIR}/data" || ! unzip -o "${ROOT_DIR}/data.zip" -d "${ROOT_DIR}"; then
     failed+=("data.zip extraction")
     log_error "data.zip extraction failed."
+=======
+merged_dir=$(mktemp -d "${ROOT_DIR}/.data-merge.XXXXXX")
+
+if [[ -z "${merged_dir}" ]]; then
+    failed+=("data.zip extraction")
+    log_error "Could not create a temporary directory for data.zip."
+else
+    if ! mkdir -p "${ROOT_DIR}/data" ||
+       ! zip -s 0 "${ROOT_DIR}/data.zip" --out "${merged_dir}/data.zip" ||
+       ! unzip -o "${merged_dir}/data.zip" -d "${ROOT_DIR}"; then
+        failed+=("data.zip extraction")
+        log_error "data.zip merge or extraction failed."
+    fi
+
+    rm -f "${merged_dir}/data.zip"
+    rmdir "${merged_dir}"
+>>>>>>> f2c8216 (Update data)
 fi
 
 # ---------- summary ----------
