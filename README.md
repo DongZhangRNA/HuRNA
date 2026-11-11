@@ -25,7 +25,7 @@ HuRNA uses MPICH for parallel REMD simulations with 10 replicas in LAMMPS. Amber
 
 ### Installation of HuRNA
 
-1. Download the released source code (recommended): [HuRNA-1.0.zip](https://github.com/DongZhangRNA/HuRNA/archive/refs/tags/v1.02.zip) or [HuRNA-1.0.tar.gz](https://github.com/DongZhangRNA/HuRNA/archive/refs/tags/v1.02.tar.gz).
+1. Download the released source code (recommended): [HuRNA-1.03.zip](https://github.com/DongZhangRNA/HuRNA/archive/refs/tags/v1.03.zip) or [HuRNA-1.03.tar.gz](https://github.com/DongZhangRNA/HuRNA/archive/refs/tags/v1.03.tar.gz).
 
    Alternatively, clone the repository:
 
@@ -38,19 +38,19 @@ HuRNA uses MPICH for parallel REMD simulations with 10 replicas in LAMMPS. Amber
 2. Extract the source code:
 
    ```bash
-   unzip HuRNA-1.02.zip
+   unzip HuRNA-1.03.zip
    ```
 
    Or, if you downloaded the tarball:
 
    ```bash
-   tar -xzf HuRNA-1.02.tar.gz
+   tar -xzf HuRNA-1.03.tar.gz
    ```
 
 3. Install HuRNA:
 
    ```bash
-   cd HuRNA-1.02 && bash ./install.sh
+   cd HuRNA-1.03 && bash ./install.sh
    ```
 
 The installer checks that `cmake`, `make`, `gcc`, `g++`, and `mpirun` are available on `PATH`. It also verifies that `g++` can compile C++14 code before starting the build. The installer exits with an error if a prerequisite is missing or the compilation check fails.
